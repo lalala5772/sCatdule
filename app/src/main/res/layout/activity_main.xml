@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/beige"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+    //고양이 키우는(?) 레이아웃 -> 실행해보면 경험치 바와 날짜가 제대로 보임.
+    <TextView
+        android:id="@+id/main_profile"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/cat_image" />
+
+    <TextView
+        android:id="@+id/days_info"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/main_profile"
+        android:text="날짜 정보 표시"
+        android:textSize="27sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        />
+
+    <View
+        android:id="@+id/cat_view"
+        android:layout_width="280dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="62dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/days_info"
+        android:background="@drawable/round_layout"
+        android:elevation="10dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="120dp"
+        android:layout_height="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_below="@id/days_info"
+        android:outlineAmbientShadowColor="@color/purple_200"
+        android:elevation="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/cat"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/days_info"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/cat_tmp"
+        android:elevation="10dp"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/cat"
+        android:layout_centerHorizontal="true"
+        android:text="Lv.01"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        />
+
+    //todolist layout인데 크기를 조정할 필요가 있음 -> 아래 버튼과 겹침
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/cat_view"
+        android:layout_margin="20dp"
+
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/todolist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inputToDo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="할 일을 입력하세요."
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@drawable/btn_zorba"
+                android:text="ok"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </LinearLayout>
+
+    </RelativeLayout>
+
+    //아래 홈버튼/설정버튼 레이아웃
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/round_layout"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_home_24"
+            />
+
+        <ImageButton
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="settings"
+            android:background="@drawable/round_layout"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_settings_24"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
