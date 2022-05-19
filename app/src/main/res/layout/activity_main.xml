@@ -80,8 +80,9 @@
 
     //todolist layout인데 크기를 조정할 필요가 있음 -> 아래 버튼과 겹침
     <RelativeLayout
+        android:id="@+id/todobox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="350dp"
         android:layout_below="@id/cat_view"
         android:layout_margin="20dp"
 
@@ -105,7 +106,8 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="할 일을 입력하세요."
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:privateImeOptions="defaultInputmode=korean"/>
 
             <Button
                 android:id="@+id/saveButton"
@@ -130,6 +132,7 @@
 
     //아래 홈버튼/설정버튼 레이아웃
     <LinearLayout
+        android:layout_below="@id/todobox"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -139,26 +142,26 @@
 
         <ImageButton
             android:id="@+id/home"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/round_layout"
-            style="?android:attr/borderlessButtonStyle"
             android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_baseline_home_24"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/settings"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="settings"
             android:background="@drawable/round_layout"
-            style="?android:attr/borderlessButtonStyle"
             android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_baseline_settings_24"
-            />
+            android:text="settings"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
