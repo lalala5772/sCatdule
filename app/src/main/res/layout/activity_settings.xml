@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    <TextView
+        android:id="@+id/settings_text"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:gravity="fill_vertical"
+        android:text=" Settings"
+        android:textAlignment="viewStart"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/notificationSettings_text"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="알림설정"
+        android:textAlignment="viewStart"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_text" />
+
+    <Button
+        android:id="@+id/logout_text"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="로그아웃"
+        android:textAlignment="viewStart"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notificationSettings_text" />
+
+    <Button
+        android:id="@+id/help_text"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:text="도움말"
+        android:textAlignment="viewStart"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>
