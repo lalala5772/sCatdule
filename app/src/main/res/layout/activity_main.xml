@@ -7,7 +7,8 @@
     tools:context=".MainActivity"
     >
 
-    //고양이 키우는(?) 레이아웃 -> 실행해보면 경험치 바와 날짜가 제대로 보임.
+    <!--    고양이 및 경험치 바 레이아웃 구역-->
+    //대충 꾸미려고 둔 고양이 아이콘 부분
     <TextView
         android:id="@+id/main_profile"
         android:layout_width="60dp"
@@ -18,6 +19,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/cat_image" />
 
+    // 오늘의 날짜를 가져오는 부분
     <TextView
         android:id="@+id/days_info"
         android:layout_width="300dp"
@@ -32,6 +34,7 @@
         android:textStyle="bold"
         />
 
+    // 고양이+경험치 바 + 레벨 등을 담는 상자 부분 -> round_layout으로 구성
     <View
         android:id="@+id/cat_view"
         android:layout_width="280dp"
@@ -44,6 +47,7 @@
         android:elevation="10dp"
         />
 
+    // 경험치 바 부분
     <ProgressBar
         android:id="@+id/progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -56,6 +60,7 @@
         android:elevation="10dp"
         />
 
+    // 고양이 이미지 부분
     <ImageView
         android:id="@+id/cat"
         android:layout_width="100dp"
@@ -66,6 +71,7 @@
         android:src="@drawable/cat_tmp"
         android:elevation="10dp"/>
 
+    //레벨을 나타내는 부분
     <TextView
         android:layout_width="50dp"
         android:layout_height="30dp"
@@ -78,59 +84,59 @@
         android:elevation="10dp"
         />
 
-    //todolist layout인데 크기를 조정할 필요가 있음 -> 아래 버튼과 겹침
+    <!--    to do list 레이아웃 구역 -->
     <RelativeLayout
         android:id="@+id/todobox"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="380dp"
         android:layout_below="@id/cat_view"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
 
         >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:id="@+id/todolist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/inputToDo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="할 일을 입력하세요."
-                android:inputType="textMultiLine"
-                android:privateImeOptions="defaultInputmode=korean"/>
-
-            <Button
-                android:id="@+id/saveButton"
+            <LinearLayout
+                android:id="@+id/todolist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:background="@drawable/btn_zorba"
-                android:text="ok"
-                />
+                android:orientation="horizontal">
 
+                //할 일 입력하는 부분
+                <EditText
+                    android:id="@+id/inputToDo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="할 일을 입력하세요."
+                    android:inputType="textMultiLine"
+                    android:privateImeOptions="defaultInputmode=korean"/>
+                // 할 일 list에 저장하는 부분
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/btn_zorba"
+                    android:text="ok"
+                    />
+
+            </LinearLayout>
+            //입력된 list 정보 띄워주는 부분
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-    </LinearLayout>
-
     </RelativeLayout>
 
-    //아래 홈버튼/설정버튼 레이아웃
+    <!--  홈/세팅 버튼 레이아웃  -->
     <LinearLayout
         android:layout_below="@id/todobox"
         android:layout_width="fill_parent"
@@ -139,7 +145,7 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         >
-
+        //home 버튼 구역
         <ImageButton
             android:id="@+id/home"
             style="?android:attr/borderlessButtonStyle"
@@ -151,6 +157,7 @@
             android:src="@drawable/ic_baseline_home_24"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        // settings 버튼 구역
         <ImageButton
             android:id="@+id/settings"
             style="?android:attr/borderlessButtonStyle"
@@ -162,7 +169,5 @@
             android:src="@drawable/ic_baseline_settings_24"
             android:text="settings"
             tools:ignore="SpeakableTextPresentCheck" />
-
     </LinearLayout>
-
 </RelativeLayout>

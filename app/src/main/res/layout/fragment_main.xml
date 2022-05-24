@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+    <!--to do list의 목록들을 (item) 스크롤로 새로고침 하여 목록을 가져오는 뷰-->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
