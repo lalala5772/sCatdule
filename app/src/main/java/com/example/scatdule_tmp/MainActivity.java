@@ -35,12 +35,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //이동
+
+
+        //settings 이동
         ImageButton setting_btn = (ImageButton) findViewById(R.id.settings);
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //카카오 로그인 창 이동 일단 home으로 해놓음
+        ImageButton home_btn = (ImageButton) findViewById(R.id.home);
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -126,5 +138,6 @@ public class MainActivity extends AppCompatActivity {
             noteDatabase = null;
         }
     }
+
 
 }

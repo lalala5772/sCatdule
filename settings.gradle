@@ -9,7 +9,11 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        jcenter()
         mavenCentral()
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'
+            allowInsecureProtocol true
+        }
     }
 }
 rootProject.name = "sCatdule_tmp"
