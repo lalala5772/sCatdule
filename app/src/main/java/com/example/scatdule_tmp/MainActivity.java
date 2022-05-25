@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,10 +21,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import android.content.pm.Signature;
+
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -41,13 +49,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 로그에 해시 키 값 띄우기
+        Log.d("getKeyHash", "" + getKeyHash(MainActivity.this));
 
-//      세팅 버튼 기능 구현
+
+        //세팅 버튼 기능 구현
         ImageButton setting_btn = (ImageButton) findViewById(R.id.settings);
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //로그인 페이지 이동 일단 home버튼으로 해놓음
+        ImageButton login_btn = (ImageButton) findViewById(R.id.home);
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -159,6 +180,29 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
         progress.setMax(100);
         progress.setProgress(exp);
+    }
+
+    //해시 키 가져오기
+    public static String getKeyHash(final Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            if (packageInfo == null)
+                return null;
+
+            for (Signature signature : packageInfo.signatures) {
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    return android.util.Base64.encodeToString(md.digest(), android.util.Base64.NO_WRAP);
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
