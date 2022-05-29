@@ -65,4 +65,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logout_text" />
+
+    //home 버튼 구역
+
+    // settings 버튼 구역
+
+    <ImageButton
+        android:id="@+id/home"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_layout"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_baseline_home_24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/settings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/settings"
+        app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"/>
+
+    <ImageButton
+        android:id="@+id/settings"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_layout"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_baseline_settings_24"
+        android:text="settings"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/home"
+        app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
