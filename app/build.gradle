@@ -45,4 +45,8 @@ dependencies {
     implementation "com.kakao.sdk:v2-navi:2.6.0" // 카카오 내비
     // 오픈소스 이미지 핸들링할 때 많이 사용되는 글라이드
     implementation "com.github.bumptech.glide:glide:4.11.0"
+
+    //gif 이미지 활용 위한 종속성 추가
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

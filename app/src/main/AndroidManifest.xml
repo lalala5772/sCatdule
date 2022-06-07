@@ -15,7 +15,7 @@
         android:name=".KakaoApplication">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".SettingActivity"/>
         <activity android:name=".LoginActivity"/>
+
 
         <!-- 여기서 부터 밑에 까지 전체 추가해주세요 추가-->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
