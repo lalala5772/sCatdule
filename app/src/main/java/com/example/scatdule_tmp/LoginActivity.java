@@ -2,6 +2,7 @@ package com.example.scatdule_tmp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginButton = findViewById(R.id.login);
-        logoutButton = findViewById(R.id.logout);
-        nickName = findViewById(R.id.nickname);
-        profileImage = findViewById(R.id.profile);
 
         // 카카오가 설치되어 있는지 확인 하는 메서드또한 카카오에서 제공 콜백 객체를 이용함
         Function2<OAuthToken, Throwable, Unit> callback = new  Function2<OAuthToken, Throwable, Unit>() {
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         // 로그 아웃 버튼
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        /*logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
@@ -71,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
         updateKakaoLoginUi();
     }
     private  void updateKakaoLoginUi(){
@@ -83,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // 유저의 아이디
                     Log.d(TAG,"invoke: id" + user.getId());
-                    // 유저의 어카운트정보에 이메일
+                    // 유저의 어카운트정보에 이메일 이걸로 DB에 저장하면 될 듯
                     Log.d(TAG,"invoke: nickname" + user.getKakaoAccount().getEmail());
                     // 유저의 어카운트 정보의 프로파일에 닉네임
                     Log.d(TAG,"invoke: email" + user.getKakaoAccount().getProfile().getNickname());
@@ -92,18 +90,16 @@ public class LoginActivity extends AppCompatActivity {
                     // 유저의 어카운트 정보에 나이
                     Log.d(TAG,"invoke: age" + user.getKakaoAccount().getAgeRange());
 
-                    nickName.setText(user.getKakaoAccount().getProfile().getNickname());
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    /*nickName.setText(user.getKakaoAccount().getProfile().getNickname());
 
                     Glide.with(profileImage).load(user.getKakaoAccount().
                             getProfile().getProfileImageUrl()).circleCrop().into(profileImage);
                     loginButton.setVisibility(View.GONE);
-                    logoutButton.setVisibility(View.VISIBLE);
+                    logoutButton.setVisibility(View.VISIBLE);*/
                 }else {
                     // 로그인이 되어 있지 않다면 위와 반대로
-                    nickName.setText(null);
-                    profileImage.setImageBitmap(null);
-                    loginButton.setVisibility(View.VISIBLE);
-                    logoutButton.setVisibility(View.GONE);
                 }
                 return null;
             }
