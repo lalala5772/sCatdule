@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/loginimage"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -20,7 +21,6 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             />
-
         <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
@@ -31,9 +31,10 @@
 
     <ImageView
         android:id="@+id/login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/kakao_login_large_wide"
+        android:layout_marginBottom="100dp"
         android:visibility="gone" />
         // 로그인 시 보이기 위하여 gone로 설정해줍니다.
 
