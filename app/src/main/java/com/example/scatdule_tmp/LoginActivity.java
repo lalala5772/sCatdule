@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // 유저의 아이디
                     Log.d(TAG,"invoke: id" + user.getId());
-                    // 유저의 어카운트정보에 이메일
+                    // 유저의 어카운트정보에 이메일 이걸로 DB에 저장하면 될 듯
                     Log.d(TAG,"invoke: nickname" + user.getKakaoAccount().getEmail());
                     // 유저의 어카운트 정보의 프로파일에 닉네임
                     Log.d(TAG,"invoke: email" + user.getKakaoAccount().getProfile().getNickname());
