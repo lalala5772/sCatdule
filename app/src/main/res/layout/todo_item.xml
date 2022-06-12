@@ -14,27 +14,17 @@
     app:cardElevation="5dp">
 
     <!-- to do list 목록 레이아웃 -->
-    <LinearLayout
-        android:id="@+id/layoutTodo"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <CheckBox
-            android:id="@+id/checkBox"
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="7"
-            android:text="X"
-            app:backgroundTint="@color/siam" />
-    </LinearLayout>
+            android:buttonTint="@color/siam"
+            android:id="@+id/mcheckbox"
+            android:text="할 일 1"
+            android:paddingStart="8dp"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

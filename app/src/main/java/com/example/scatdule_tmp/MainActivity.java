@@ -4,8 +4,12 @@ import static java.sql.DriverManager.println;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,26 +28,34 @@ import android.widget.Toast;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.pm.Signature;
 
+import com.example.scatdule_tmp.Adapter.ToDoAdapter;
+import com.example.scatdule_tmp.Model.ToDoModel;
+import com.example.scatdule_tmp.Utils.DataBaseHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
     private static final String TAG = "MainActivity";
 
     TextView days_info; //오늘의 날짜 정보를 가져올 객체
-    Fragment mainFragment; //todolist(주기능을)를 구현하기 위한 객체
-    EditText inputToDo;
-    Context context;
 
+    private RecyclerView mRecyclerview;
+    private FloatingActionButton fab;
+    private DataBaseHelper myDB;
+    private List<ToDoModel> mList;
+    private ToDoAdapter adapter;
 
     public boolean exp_flag = false;
     public static int exp = 50;
-    public static NoteDatabase noteDatabase = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        setDays_info(); //오늘의 날짜 가져오는 함수 선언
-        set_progress(exp); //경험치 함수 선언
-
-
-
-//        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox) ;
+        //CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox) ;
 //        checkBox.setOnClickListener(new CheckBox.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -87,79 +93,54 @@ public class MainActivity extends AppCompatActivity {
 //                    if(exp_flag)
 //                    exp+=20;
 //                    exp%=100;
-//                    set_progress(exp);
+//                    set_progress(exp); 대신 db저장 후 progressbar update
 //                    exp_flag=true;
 //
 //                } else {
 //                    if(exp_flag){
 //                        exp-=20;
 //                        exp%=100;
-//                        set_progress(exp);
+//                        set_progress(exp); 대신 db저장 후 progressbar update
 //                        exp_flag = false;
 //                    }
 //                }
 //            }
 //        }) ;
 
+
+
+        setDays_info(); //오늘의 날짜 가져오는 함수 선언
+        set_progress(exp); //경험치 함수 선언
+
+
         //    ---------------------------------------------------------------------------------------------
         //    todolist 기능 구현 코드
-        mainFragment = new MainFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,mainFragment).commit();
+        mRecyclerview = findViewById(R.id.recyclerview);
+        fab = findViewById(R.id.fab);
+        myDB = new DataBaseHelper(MainActivity.this);
+        mList = new ArrayList<>();
+        adapter = new ToDoAdapter(myDB , MainActivity.this);
 
-        Button saveButton = findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        mRecyclerview.setHasFixedSize(true);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerview.setAdapter(adapter);
+
+        mList = myDB.getAllTasks();
+        Collections.reverse(mList);
+        adapter.setTasks(mList);
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                saveToDo();
-                Toast.makeText(getApplicationContext(),"추가되었습니다.",Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                AddNewTask.newInstance().show(getSupportFragmentManager() , AddNewTask.TAG);
             }
         });
-        openDatabase();
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
+        itemTouchHelper.attachToRecyclerView(mRecyclerview);
+
 
     }
-    private void saveToDo(){
-        inputToDo = findViewById(R.id.inputToDo);
 
-        //EditText에 적힌 글을 가져오기
-        String todo = inputToDo.getText().toString();
-
-        //테이블에 값을 추가하는 sql구문 insert...
-        String sqlSave = "insert into " + NoteDatabase.TABLE_NOTE + " (TODO) values (" +
-                "'" + todo + "')";
-
-        //sql문 실행
-        NoteDatabase database = NoteDatabase.getInstance(context);
-        database.execSQL(sqlSave);
-
-        //저장과 동시에 EditText 안의 글 초기화
-        inputToDo.setText("");
-    }
-
-
-    public void openDatabase() {
-        // open database
-        if (noteDatabase != null) {
-            noteDatabase.close();
-            noteDatabase = null;
-        }
-
-        noteDatabase = NoteDatabase.getInstance(this);
-        boolean isOpen = noteDatabase.open();
-        if (isOpen) {
-            Log.d(TAG, "Note database is open.");
-        } else {
-            Log.d(TAG, "Note database is not open.");
-        }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (noteDatabase != null) {
-            noteDatabase.close();
-            noteDatabase = null;
-        }
-    }
 
     //      ----------------------------------------------------------------------------------------------
     //      오늘의 날짜 정보 가져오는 코드
@@ -203,6 +184,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void onDialogClose(DialogInterface dialogInterface) {
+        mList = myDB.getAllTasks();
+        Collections.reverse(mList);
+        adapter.setTasks(mList);
+        adapter.notifyDataSetChanged();
     }
 
 }
