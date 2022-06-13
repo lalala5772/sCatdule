@@ -17,7 +17,7 @@ import kotlin.jvm.functions.Function1;
 public class SettingActivity extends AppCompatActivity {
     private ImageButton back_btn;
     private ImageButton home_btn;
-
+    private SplashActivity splashActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -29,15 +29,20 @@ public class SettingActivity extends AppCompatActivity {
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
         setting_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
+
 
         Button logout_btn = (Button) findViewById(R.id.logoutButton);
         logout_btn.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +51,9 @@ public class SettingActivity extends AppCompatActivity {
                 UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
                     @Override
                     public Unit invoke(Throwable throwable) {
-
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
+                        finish();
                         return null;
                     }
                 });

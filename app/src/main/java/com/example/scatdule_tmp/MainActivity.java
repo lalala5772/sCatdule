@@ -72,10 +72,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
-        //로그인 페이지 이동 일단 home버튼으로 해놓음
+        /*//로그인 페이지 이동 일단 home버튼으로 해놓음
         ImageButton login_btn = (ImageButton) findViewById(R.id.home);
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox) ;
 //        checkBox.setOnClickListener(new CheckBox.OnClickListener() {

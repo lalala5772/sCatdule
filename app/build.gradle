@@ -52,4 +52,6 @@ dependencies {
     //gif 이미지 활용 위한 종속성 추가
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
 }

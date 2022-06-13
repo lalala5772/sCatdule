@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private View loginButton, logoutButton;
     private TextView nickName;
     private ImageView profileImage;
-
+    SplashActivity splashActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         });*/
         updateKakaoLoginUi();
     }
-    private  void updateKakaoLoginUi(){
+    private void updateKakaoLoginUi(){
         UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
             @Override
             public Unit invoke(User user, Throwable throwable) {
@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+                    finish();
                     /*nickName.setText(user.getKakaoAccount().getProfile().getNickname());
 
                     Glide.with(profileImage).load(user.getKakaoAccount().
