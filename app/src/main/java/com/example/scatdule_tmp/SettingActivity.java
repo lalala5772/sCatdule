@@ -29,16 +29,12 @@ public class SettingActivity extends AppCompatActivity {
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
         setting_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -54,6 +50,8 @@ public class SettingActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
+                        finish();
+                        ((MainActivity)MainActivity.context_main).musicStop();
                         return null;
                     }
                 });

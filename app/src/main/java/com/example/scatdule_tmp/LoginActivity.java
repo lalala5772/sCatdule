@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView nickName;
     private ImageView profileImage;
     SplashActivity splashActivity;
+    MainActivity mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+
                     finish();
                     /*nickName.setText(user.getKakaoAccount().getProfile().getNickname());
 
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                     logoutButton.setVisibility(View.VISIBLE);*/
                 }else {
                     // 로그인이 되어 있지 않다면 위와 반대로
+
                 }
                 return null;
             }

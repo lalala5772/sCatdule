@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SCatdule_tmp"
         android:name=".KakaoApplication">
-
         <activity
             android:name=".SplashActivity"
             android:exported="true"
