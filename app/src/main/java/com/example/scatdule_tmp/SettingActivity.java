@@ -17,7 +17,7 @@ import kotlin.jvm.functions.Function1;
 public class SettingActivity extends AppCompatActivity {
     private ImageButton back_btn;
     private ImageButton home_btn;
-
+    private SplashActivity splashActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -39,6 +39,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+
         Button logout_btn = (Button) findViewById(R.id.logoutButton);
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,9 +47,11 @@ public class SettingActivity extends AppCompatActivity {
                 UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
                     @Override
                     public Unit invoke(Throwable throwable) {
-
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
+                        finish();
+                        finish();
+                        ((MainActivity)MainActivity.context_main).musicStop();
                         return null;
                     }
                 });

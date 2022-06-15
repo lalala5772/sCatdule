@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
     private static final String TAG = "MainActivity";
 
+    public static Context context_main;
+    public MediaPlayer mediaPlayer; // 음악재생
+
     TextView days_info; //오늘의 날짜 정보를 가져올 객체
 
     private RecyclerView mRecyclerview;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         // 로그에 해시 키 값 띄우기
         Log.d("getKeyHash", "" + getKeyHash(MainActivity.this));
 
+        context_main=this;
 
         //세팅 버튼 기능 구현
         ImageButton setting_btn = (ImageButton) findViewById(R.id.settings);
@@ -75,16 +80,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
             }
         });
 
-        //로그인 페이지 이동 일단 home버튼으로 해놓음
-        ImageButton login_btn = (ImageButton) findViewById(R.id.home);
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.matt);
+        mediaPlayer.setLooping(true); //무한재생
+        mediaPlayer.start();
         //CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox) ;
 //        checkBox.setOnClickListener(new CheckBox.OnClickListener() {
 //            @Override
@@ -191,6 +189,12 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         Collections.reverse(mList);
         adapter.setTasks(mList);
         adapter.notifyDataSetChanged();
+    }
+
+
+    public void musicStop(){
+        mediaPlayer.stop();
+        mediaPlayer=null;
     }
 
 }
