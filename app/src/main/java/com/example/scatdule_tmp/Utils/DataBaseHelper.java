@@ -23,7 +23,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static  final String COL_1 = "ID";
     private static  final String COL_2 = "TASK";
     private static  final String COL_3 = "STATUS";
-//    private static  final String COL_4 = "EXP";
 
 
     public DataBaseHelper(@Nullable Context context ) {
@@ -46,7 +45,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL_2 , model.getTask());
         values.put(COL_3 , 0);
-//        values.put(COL_4 , 0);
         db.insert(TABLE_NAME , null , values);
     }
 
@@ -92,7 +90,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         task.setId(cursor.getInt(cursor.getColumnIndex(COL_1)));
                         task.setTask(cursor.getString(cursor.getColumnIndex(COL_2)));
                         task.setStatus(cursor.getInt(cursor.getColumnIndex(COL_3)));
-//                        task.setExp(cursor.getInt(cursor.getColumnIndex(COL_4)));
                         modelList.add(task);
 
                     }while (cursor.moveToNext());

@@ -3,7 +3,7 @@ package com.example.scatdule_tmp.Model;
 public class ToDoModel {
 
     private String task;
-    private int id , status, exp;
+    private int id , status, exp, level;
 
     public String getTask() {
         return task;
@@ -28,12 +28,12 @@ public class ToDoModel {
     public void setStatus(int status) {
         this.status = status;
     }
+
+//    public int getExp() { return exp; }
 //
-//    public int getExp() {
-//        return exp;
-//    }
+//    public void setExp(int exp) { this.exp = exp; }
 //
-//    public void setExp(int exp) {
-//        this.exp = exp;
-//    }
+//    public int getLevel() { return level; }
+//
+//    public void setLevel(int level) { this.level = level; }
 }

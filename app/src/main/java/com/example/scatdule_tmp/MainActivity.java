@@ -13,6 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +25,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -38,6 +43,7 @@ import java.util.Locale;
 
 import android.content.pm.Signature;
 
+import com.bumptech.glide.Glide;
 import com.example.scatdule_tmp.Adapter.ToDoAdapter;
 import com.example.scatdule_tmp.Model.ToDoModel;
 import com.example.scatdule_tmp.Utils.DataBaseHelper;
@@ -47,6 +53,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
     private static final String TAG = "MainActivity";
 
+    SQLiteDatabase sqliteDB ;
     public static Context context_main;
     public MediaPlayer mediaPlayer; // 음악재생
 
@@ -59,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private ToDoAdapter adapter;
 
     public boolean exp_flag = false;
-    public static int exp = 50;
+    public static int exp = 0;
+    public static int level = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,29 +91,13 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         mediaPlayer = MediaPlayer.create(this, R.raw.matt);
         mediaPlayer.setLooping(true); //무한재생
         mediaPlayer.start();
-        //CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox) ;
-//        checkBox.setOnClickListener(new CheckBox.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (((CheckBox)v).isChecked()) {
-//                    if(exp_flag)
-//                    exp+=20;
-//                    exp%=100;
-//                    set_progress(exp); 대신 db저장 후 progressbar update
-//                    exp_flag=true;
-//
-//                } else {
-//                    if(exp_flag){
-//                        exp-=20;
-//                        exp%=100;
-//                        set_progress(exp); 대신 db저장 후 progressbar update
-//                        exp_flag = false;
-//                    }
-//                }
-//            }
-//        }) ;
+        //-----------------------------------------------------------------------------------------------
+
+        ImageView cat = (ImageView) findViewById(R.id.cat);
+        Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
 
 
+        //-----------------------------------------------------------------------------------------------
 
         setDays_info(); //오늘의 날짜 가져오는 함수 선언
         set_progress(exp); //경험치 함수 선언
@@ -138,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
 
 
     }
+
 
 
     //      ----------------------------------------------------------------------------------------------

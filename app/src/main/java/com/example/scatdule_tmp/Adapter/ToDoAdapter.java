@@ -3,6 +3,7 @@ package com.example.scatdule_tmp.Adapter;
 import static com.example.scatdule_tmp.MainActivity.exp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
+
                 }else
                     myDB.updateStatus(item.getId() , 0);
             }

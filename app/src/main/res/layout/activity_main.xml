@@ -71,7 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:elevation="10dp"
-        android:src="@drawable/cat_tmp" />
+        />
 
     //레벨을 나타내는 부분
     <TextView
@@ -110,15 +110,15 @@
                 android:nestedScrollingEnabled="true" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
-                android:id="@+id/fab"
+                android:layout_margin="30dp"
                 android:backgroundTint="#EC964A"
-                app:borderWidth="0dp"
-                app:fabSize="normal"
                 android:src="@drawable/ic_baseline_add_24"
-                android:layout_margin="30dp" />
+                app:borderWidth="0dp"
+                app:fabSize="normal" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -136,7 +136,7 @@
             android:id="@+id/home"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/round_layout"
             android:foreground="?android:attr/selectableItemBackground"
@@ -148,7 +148,7 @@
             android:id="@+id/settings"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/round_layout"
             android:foreground="?android:attr/selectableItemBackground"
