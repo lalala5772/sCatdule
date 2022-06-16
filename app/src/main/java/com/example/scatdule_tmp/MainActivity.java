@@ -3,11 +3,17 @@ package com.example.scatdule_tmp;
 import static java.sql.DriverManager.println;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +23,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,10 +77,29 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     public static int exp = 0;
     public static int level = 0;
 
+    private AlarmManager alarmManager;
+    private GregorianCalendar mCalender;
+
+    private NotificationManager notificationManager;
+    NotificationCompat.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //알림
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        mCalender = new GregorianCalendar();
+
+        Log.v("HelloAlarmActivity", mCalender.getTime().toString());
+
+        setContentView(R.layout.activity_main);
+
+
         // 로그에 해시 키 값 띄우기
         Log.d("getKeyHash", "" + getKeyHash(MainActivity.this));
 
@@ -184,10 +211,10 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         adapter.notifyDataSetChanged();
     }
 
-
     public void musicStop(){
         mediaPlayer.stop();
         mediaPlayer=null;
     }
+
 
 }
