@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.sdk.user.UserApiClient;
+import com.lakue.lakuepopupactivity.PopupActivity;
+import com.lakue.lakuepopupactivity.PopupGravity;
+import com.lakue.lakuepopupactivity.PopupType;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -26,6 +29,8 @@ public class SettingActivity extends AppCompatActivity {
 
         ImageButton setting_btn = (ImageButton) findViewById(R.id.backButton);
         ImageButton setting_btn2 = (ImageButton) findViewById(R.id.home);
+        Button notification_btn = (Button) findViewById(R.id.notificationSettings_text);
+
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +43,16 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        notification_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SpinerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
         Button logout_btn = (Button) findViewById(R.id.logoutButton);
