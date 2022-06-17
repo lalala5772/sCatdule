@@ -73,7 +73,6 @@ public class SpinerActivity extends Activity {
                         return;
                     } else {
                         Constants.SCATDULE_EVENT_TIME=(spinner.getSelectedItemPosition()-1)*3;
-                        Constants.SCATDULE_EVENT_TIME=8;
                         Toast.makeText(getApplicationContext(), spinner.getSelectedItem().toString() + "에 알림 설정됨.", Toast.LENGTH_SHORT).show();
                         finish();
                         //알림 설정
