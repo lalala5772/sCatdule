@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "596727552643",
+    "project_id": "scatdule",
+    "storage_bucket": "scatdule.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596727552643:android:027504fd91bb3c1592d9b6",
+        "android_client_info": {
+          "package_name": "com.example.scatdule_tmp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596727552643-qq56qahq5575ee1pi7e1ko3e8rspe7pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH2SC3BS9W6vzvPjEYWbjnDs4HaurXfwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596727552643-qq56qahq5575ee1pi7e1ko3e8rspe7pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

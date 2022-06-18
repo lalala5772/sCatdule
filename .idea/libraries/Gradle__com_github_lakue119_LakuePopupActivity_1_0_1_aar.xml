@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.lakue119:LakuePopupActivity:1.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2eda5b3d323bfa6883bf0ba0bfa30c29/transformed/LakuePopupActivity-1.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2eda5b3d323bfa6883bf0ba0bfa30c29/transformed/LakuePopupActivity-1.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2eda5b3d323bfa6883bf0ba0bfa30c29/transformed/LakuePopupActivity-1.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cfeab6ca5cae3ce6e44ad393a13be3d6/transformed/LakuePopupActivity-1.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cfeab6ca5cae3ce6e44ad393a13be3d6/transformed/LakuePopupActivity-1.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/cfeab6ca5cae3ce6e44ad393a13be3d6/transformed/LakuePopupActivity-1.0.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

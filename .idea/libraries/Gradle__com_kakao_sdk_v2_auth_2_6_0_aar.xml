@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.kakao.sdk:v2-auth:2.6.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/397ec26297df947994eba65c78f92dcc/transformed/v2-auth-2.6.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/397ec26297df947994eba65c78f92dcc/transformed/v2-auth-2.6.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/397ec26297df947994eba65c78f92dcc/transformed/v2-auth-2.6.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0964c3ab4798f9ceeea0a8000c4a1d62/transformed/v2-auth-2.6.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0964c3ab4798f9ceeea0a8000c4a1d62/transformed/v2-auth-2.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0964c3ab4798f9ceeea0a8000c4a1d62/transformed/v2-auth-2.6.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

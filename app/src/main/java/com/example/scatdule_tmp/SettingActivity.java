@@ -67,6 +67,9 @@ public class SettingActivity extends AppCompatActivity {
                         finish();
                         finish();
                         ((MainActivity)MainActivity.context_main).musicStop();
+
+                        //데이터 저장
+                        FirebaseUser.saveUserInfo(Constants.id,Constants.level,Constants.exp);
                         return null;
                     }
                 });
