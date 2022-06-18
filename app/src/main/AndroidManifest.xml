@@ -43,6 +43,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".SettingActivity"/>
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".HelpActivity"/>
         <activity android:name=".SpinerActivity"
             android:theme="@android:style/Theme.Dialog"/>
 

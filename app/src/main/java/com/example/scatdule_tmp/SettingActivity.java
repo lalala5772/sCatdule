@@ -28,16 +28,11 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         ImageButton setting_btn = (ImageButton) findViewById(R.id.backButton);
-        ImageButton setting_btn2 = (ImageButton) findViewById(R.id.home);
-        Button notification_btn = (Button) findViewById(R.id.notificationSettings_text);
+        ImageButton helpview_btn = (ImageButton) findViewById(R.id.help_text);
+        ImageButton notification_btn = (ImageButton) findViewById(R.id.notificationSettings_text);
+
 
         setting_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        setting_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -52,10 +47,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        Button logout_btn = (Button) findViewById(R.id.logoutButton);
+        ImageButton logout_btn = (ImageButton) findViewById(R.id.logoutButton);
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +65,15 @@ public class SettingActivity extends AppCompatActivity {
                         return null;
                     }
                 });
+            }
+        });
+
+
+        helpview_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(intent);
             }
         });
 

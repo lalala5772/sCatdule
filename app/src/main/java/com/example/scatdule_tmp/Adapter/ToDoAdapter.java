@@ -53,7 +53,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
-                    exp += 20;
+                    exp += 50;
                     if(exp>=100)
                     {
                         exp%=100;

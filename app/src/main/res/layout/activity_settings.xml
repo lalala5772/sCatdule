@@ -14,86 +14,124 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
-
-    <TextView
-        android:id="@+id/settings_text"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:gravity="fill_vertical"
-        android:text=" Settings"
-        android:textAlignment="viewStart"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <Button
-        android:id="@+id/notificationSettings_text"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:text="알림설정"
-        android:textAlignment="viewStart"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_text" />
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:text="로그아웃"
-        android:textAlignment="viewStart"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notificationSettings_text" />
-
-    <Button
-        android:id="@+id/help_text"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:text="도움말"
-        android:textAlignment="viewStart"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
-
-    //home 버튼 구역
-
-    // settings 버튼 구역
-
-    <ImageButton
-        android:id="@+id/home"
+        app:srcCompat="?attr/actionModeCloseDrawable"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/round_layout"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_baseline_home_24"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/settings"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/settings"
-        app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"/>
+        android:layout_marginLeft="10dp"
+        android:foreground="@drawable/home_ne"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
-    <ImageButton
-        android:id="@+id/settings"
+
+    <ImageView
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@drawable/round_layout"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_baseline_settings_24"
-        android:text="settings"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/home"
-        app:layout_constraintBottom_toBottomOf="@id/ConstraintLayout"/>
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="27dp"
+        android:foreground="@drawable/settingslogo"
+
+        app:layout_constraintLeft_toRightOf="@id/backButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp">
+        <ImageButton
+            android:id="@+id/notificationSettings_text"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="알림설정"
+            android:textAlignment="viewStart"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="@drawable/list_btn"
+            />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignLeft="@id/notificationSettings_text"
+            android:layout_alignTop="@id/notificationSettings_text"
+            android:layout_alignRight="@id/notificationSettings_text"
+            android:layout_alignBottom="@id/notificationSettings_text"
+
+            android:text="알림설정"
+            android:textColor="#5C5B5B"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:gravity="center"
+            />
+
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="viewStart"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            android:layout_below="@id/notificationSettings_text"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="@drawable/list_btn" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignLeft="@id/logoutButton"
+            android:layout_alignTop="@id/logoutButton"
+            android:layout_alignRight="@id/logoutButton"
+            android:layout_alignBottom="@id/logoutButton"
+
+            android:text="로그아웃"
+            android:textColor="#5C5B5B"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:gravity="center" />
+
+
+        <ImageButton
+            android:id="@+id/help_text"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="viewStart"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            android:layout_below="@id/logoutButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="@drawable/list_btn" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignLeft="@id/help_text"
+            android:layout_alignTop="@id/help_text"
+            android:layout_alignRight="@id/help_text"
+            android:layout_alignBottom="@id/help_text"
+
+            android:gravity="center"
+            android:text="도움말"
+            android:textColor="#5C5B5B"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

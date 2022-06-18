@@ -30,8 +30,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         ImageView gif_image = (ImageView) findViewById(R.id.gif_image);
-        /*Glide.with(this).load(R.drawable.startview).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(gif_image);*/
-        Glide.with(this).asGif().load(R.drawable.startview).listener(new RequestListener<GifDrawable>() {
+        /*Glide.with(this).load(R.drawable.startview3).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(gif_image);*/
+        Glide.with(this).asGif().load(R.drawable.startview3).listener(new RequestListener<GifDrawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
                 return false;

@@ -25,9 +25,11 @@
         <entry key="..\:/Users/bueno/sCatdule/app/src/main/res/layout/todo_item.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete.xml" value="0.1485" />
+        <entry key="app/src/main/res/drawable/round_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_help.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_start.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/add_newtask.xml" value="0.338768115942029" />

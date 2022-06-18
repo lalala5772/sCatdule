@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         dbHelper.insert( exp, level);
         levelView.setText("Lv." + level);
         progress.setProgress(exp);
-        Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
+        Glide.with(this).load(R.raw.black_sit_tale).into(cat);
 
         //    ---------------------------------------------------------------------------------------------
         //    todolist 기능 구현 코드
@@ -248,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     public void set_image(){
         ImageView cat = (ImageView) findViewById(R.id.cat);
         if (level==1){
-            Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
+            Glide.with(this).load(R.raw.black_sit_tale).into(cat);
         }
         else if(level==2){
             if(exp==0) changeLevel();
-            Glide.with(this).load(R.raw.black_sit_tale).into(cat);
+            Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
         }
         else if(level==3){
             if(exp==0) changeLevel();

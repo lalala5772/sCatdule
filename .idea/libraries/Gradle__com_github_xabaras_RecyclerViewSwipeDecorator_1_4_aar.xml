@@ -1,18 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.xabaras:RecyclerViewSwipeDecorator:1.4@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/res" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.github.xabaras/RecyclerViewSwipeDecorator/1.4/f5bead40c824b4dfc9f0e885d9cee852d0e05c7a/RecyclerViewSwipeDecorator-1.4-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.xabaras/RecyclerViewSwipeDecorator/1.4/f5bead40c824b4dfc9f0e885d9cee852d0e05c7a/RecyclerViewSwipeDecorator-1.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.github.xabaras/RecyclerViewSwipeDecorator/1.4/f5bead40c824b4dfc9f0e885d9cee852d0e05c7a/RecyclerViewSwipeDecorator-1.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
