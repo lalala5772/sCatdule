@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.kakao.sdk:v2-navi:2.6.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/cc00a1348b181a9696477909216f19fe/transformed/v2-navi-2.6.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cc00a1348b181a9696477909216f19fe/transformed/v2-navi-2.6.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/cc00a1348b181a9696477909216f19fe/transformed/v2-navi-2.6.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/43a7584d6d1a4c54fe6d1e1b61650552/transformed/v2-navi-2.6.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/43a7584d6d1a4c54fe6d1e1b61650552/transformed/v2-navi-2.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/43a7584d6d1a4c54fe6d1e1b61650552/transformed/v2-navi-2.6.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

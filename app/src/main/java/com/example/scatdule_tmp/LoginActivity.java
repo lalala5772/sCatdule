@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.User;
@@ -17,6 +19,8 @@ import com.kakao.sdk.user.model.User;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
+
+
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -90,6 +94,11 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d(TAG,"invoke: gerder" + user.getKakaoAccount().getGender());
                     // 유저의 어카운트 정보에 나이
                     Log.d(TAG,"invoke: age" + user.getKakaoAccount().getAgeRange());
+
+
+                    Constants.id = String.valueOf(user.getId());
+
+                    FirebaseUser.findUser(Constants.id);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);

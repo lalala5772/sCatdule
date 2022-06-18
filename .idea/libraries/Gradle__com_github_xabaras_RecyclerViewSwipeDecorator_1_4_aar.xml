@@ -4,9 +4,10 @@
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9ede1828c69b6b061987255aa99566f9/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/270520ab6c09c1265c541f31bbd4decc/transformed/RecyclerViewSwipeDecorator-1.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
