@@ -74,17 +74,18 @@
         />
 
     //레벨을 나타내는 부분
+
     <TextView
+        android:id="@+id/levelView"
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_below="@id/cat"
         android:layout_centerHorizontal="true"
-        android:text="Lv.01"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textStyle="bold"
         android:elevation="10dp"
-        />
+        android:gravity="center"
+        android:text="Lv.01"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <!--    to do list 레이아웃 구역 -->
     <RelativeLayout

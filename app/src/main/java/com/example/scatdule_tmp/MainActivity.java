@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -55,27 +56,28 @@ import com.bumptech.glide.Glide;
 import com.example.scatdule_tmp.Adapter.ToDoAdapter;
 import com.example.scatdule_tmp.Model.ToDoModel;
 import com.example.scatdule_tmp.Utils.DataBaseHelper;
+import com.example.scatdule_tmp.Utils.InfoDBHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
     private static final String TAG = "MainActivity";
 
-    SQLiteDatabase sqliteDB ;
     public static Context context_main;
     public MediaPlayer mediaPlayer; // 음악재생
 
     TextView days_info; //오늘의 날짜 정보를 가져올 객체
+    CheckBox checkBox;
 
     private RecyclerView mRecyclerview;
     private FloatingActionButton fab;
     private DataBaseHelper myDB;
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
+    private InfoDBHelper dbHelper;
 
-    public boolean exp_flag = false;
     public static int exp = 0;
-    public static int level = 0;
+    public static int level = 1;
 
     private AlarmManager alarmManager;
     private GregorianCalendar mCalender;
@@ -88,7 +90,10 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //알림
+        //exp, level db 선언 ----------------------------------------------
+        dbHelper = new InfoDBHelper(MainActivity.this, 1);
+
+        //알림--------------------------------------------------------------------------------------------
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -100,12 +105,12 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
 
 
-        // 로그에 해시 키 값 띄우기
+        // 로그에 해시 키 값 띄우기-----------------------------------------------------------------------------
         Log.d("getKeyHash", "" + getKeyHash(MainActivity.this));
 
         context_main=this;
 
-        //세팅 버튼 기능 구현
+        //세팅 버튼 기능 구현----------------------------------------------------------------------------------
         ImageButton setting_btn = (ImageButton) findViewById(R.id.settings);
         setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,20 +120,25 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
             }
         });
 
+        //----------------------------------------------------------------------------------------------
         mediaPlayer = MediaPlayer.create(this, R.raw.matt);
         mediaPlayer.setLooping(true); //무한재생
         mediaPlayer.start();
         //-----------------------------------------------------------------------------------------------
 
-        ImageView cat = (ImageView) findViewById(R.id.cat);
-        Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
 
 
         //-----------------------------------------------------------------------------------------------
 
         setDays_info(); //오늘의 날짜 가져오는 함수 선언
-        set_progress(exp); //경험치 함수 선언
 
+        TextView levelView = (TextView)findViewById(R.id.levelView);
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+        ImageView cat = (ImageView) findViewById(R.id.cat);
+        dbHelper.insert( exp, level);
+        levelView.setText("Lv." + level);
+        progress.setProgress(exp);
+        Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
 
         //    ---------------------------------------------------------------------------------------------
         //    todolist 기능 구현 코드
@@ -155,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
 
-
     }
 
 
@@ -174,14 +183,20 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     }
 
     //      ----------------------------------------------------------------------------------------------
-    //      경험치 바 구현 코드
-    public void set_progress(int exp){
+    //      경험치 바, 레벨 구현 코드
+    public void set_progress(){
+        TextView levelView = (TextView)findViewById(R.id.levelView);
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
-        progress.setMax(100);
+        dbHelper.Update( exp, level);
         progress.setProgress(exp);
+        levelView.setText("Lv." + level);
+        set_image();
+
     }
 
-    //해시 키 가져오기
+
+
+    //해시 키 가져오기----------------------------------------------------------------------------------------
     public static String getKeyHash(final Context context) {
         PackageManager pm = context.getPackageManager();
         try {
@@ -216,5 +231,64 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         mediaPlayer=null;
     }
 
+    void changeLevel() {
+        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
+                .setTitle("level up")
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        Toast.makeText(MainActivity.this, "^^", Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
+                    }
+                });
+        AlertDialog msgDlg = msgBuilder.create();
+        msgDlg.show();
+    }
+
+    public void set_image(){
+        ImageView cat = (ImageView) findViewById(R.id.cat);
+        if (level==1){
+            Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
+        }
+        else if(level==2){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.black_sit_tale).into(cat);
+        }
+        else if(level==3){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.white_grey_sit_tale).into(cat);
+        }
+        else if(level==4){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.creme_sit_tale).into(cat);
+        }
+        else if(level==5){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.calico_sit_tale).into(cat);
+        }
+        else if(level==6){
+            if(exp==0) changeLevel();
+
+            Glide.with(this).load(R.raw.red_sit_tale).into(cat);
+        }
+        else if(level==7){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.dark_sit_tale).into(cat);
+        }
+        else if(level==8){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.ghost_sit_tale).into(cat);
+        }
+        else if(level==9){
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
+        }
+        else{
+            if(exp==0) changeLevel();
+            Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
+        }
+
+
+    }
 
 }

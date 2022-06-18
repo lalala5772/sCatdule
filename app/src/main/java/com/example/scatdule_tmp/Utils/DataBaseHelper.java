@@ -62,13 +62,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
     }
 
-//    public void updateExp(int id , int exp){
-//        db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(COL_4 , exp);
-//        db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
-//    }
-
     public void deleteTask(int id ){
         db = this.getWritableDatabase();
         db.delete(TABLE_NAME , "ID=?" , new String[]{String.valueOf(id)});

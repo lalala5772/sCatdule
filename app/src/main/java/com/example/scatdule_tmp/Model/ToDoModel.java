@@ -29,11 +29,4 @@ public class ToDoModel {
         this.status = status;
     }
 
-//    public int getExp() { return exp; }
-//
-//    public void setExp(int exp) { this.exp = exp; }
-//
-//    public int getLevel() { return level; }
-//
-//    public void setLevel(int level) { this.level = level; }
 }
