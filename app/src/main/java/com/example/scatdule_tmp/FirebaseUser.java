@@ -55,8 +55,12 @@ public class FirebaseUser {
                 }
                 else {
                     Log.d("firebase1", String.valueOf(task.getResult().getValue()));
-                    if (task.getResult().getValue()==null)
+                    if (task.getResult().getValue()==null) {
+                        Constants.level = 1;
+                        Constants.exp = 0;
                         writeNewUser(userId);
+
+                    }
                     else {
                         Constants.level = task.getResult().getValue(FirebaseUser.class).level;
                         Constants.exp = task.getResult().getValue(FirebaseUser.class).exp;

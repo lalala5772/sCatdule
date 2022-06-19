@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private ToDoAdapter adapter;
     private InfoDBHelper dbHelper;
 
-    public static int exp = Constants.exp;
-    public static int level = Constants.level;
+    /*int exp = Constants.exp;
+    int level = Constants.level;*/
 
     private AlarmManager alarmManager;
     private GregorianCalendar mCalender;
@@ -135,10 +135,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         TextView levelView = (TextView)findViewById(R.id.levelView);
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
         ImageView cat = (ImageView) findViewById(R.id.cat);
-        dbHelper.insert( exp, level);
-        levelView.setText("Lv." + level);
-        progress.setProgress(exp);
+        dbHelper.insert( Constants.exp, Constants.level);
+        levelView.setText("Lv." + Constants.level);
+        progress.setProgress(Constants.exp);
         Glide.with(this).load(R.raw.black_sit_tale).into(cat);
+        Log.i("level", Integer.toString(Constants.level));
 
         //    ---------------------------------------------------------------------------------------------
         //    todolist 기능 구현 코드
@@ -187,9 +188,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     public void set_progress(){
         TextView levelView = (TextView)findViewById(R.id.levelView);
         ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
-        dbHelper.Update( exp, level);
-        progress.setProgress(exp);
-        levelView.setText("Lv." + level);
+        dbHelper.Update( Constants.exp, Constants.level);
+        progress.setProgress(Constants.exp);
+        levelView.setText("Lv." + Constants.level);
         set_image();
 
     }
@@ -247,44 +248,44 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
 
     public void set_image(){
         ImageView cat = (ImageView) findViewById(R.id.cat);
-        if (level==1){
+        if (Constants.level==1){
             Glide.with(this).load(R.raw.black_sit_tale).into(cat);
         }
-        else if(level==2){
-            if(exp==0) changeLevel();
+        else if(Constants.level==2){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
         }
-        else if(level==3){
-            if(exp==0) changeLevel();
+        else if(Constants.level==3){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.white_grey_sit_tale).into(cat);
         }
-        else if(level==4){
-            if(exp==0) changeLevel();
+        else if(Constants.level==4){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.creme_sit_tale).into(cat);
         }
-        else if(level==5){
-            if(exp==0) changeLevel();
+        else if(Constants.level==5){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.calico_sit_tale).into(cat);
         }
-        else if(level==6){
-            if(exp==0) changeLevel();
+        else if(Constants.level==6){
+            if(Constants.exp==0) changeLevel();
 
             Glide.with(this).load(R.raw.red_sit_tale).into(cat);
         }
-        else if(level==7){
-            if(exp==0) changeLevel();
+        else if(Constants.level==7){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.dark_sit_tale).into(cat);
         }
-        else if(level==8){
-            if(exp==0) changeLevel();
+        else if(Constants.level==8){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.ghost_sit_tale).into(cat);
         }
-        else if(level==9){
-            if(exp==0) changeLevel();
+        else if(Constants.level==9){
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
         }
         else{
-            if(exp==0) changeLevel();
+            if(Constants.exp==0) changeLevel();
             Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
         }
 
