@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private ToDoAdapter adapter;
     private InfoDBHelper dbHelper;
 
-    public static int exp = 0;
-    public static int level = 1;
+    public static int exp = Constants.exp;
+    public static int level = Constants.level;
 
     private AlarmManager alarmManager;
     private GregorianCalendar mCalender;
