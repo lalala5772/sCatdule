@@ -2,6 +2,7 @@ package com.example.scatdule_tmp;
 
 import static java.sql.DriverManager.println;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -23,9 +25,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -49,15 +53,26 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import android.content.pm.Signature;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.scatdule_tmp.Adapter.ToDoAdapter;
 import com.example.scatdule_tmp.Model.ToDoModel;
 import com.example.scatdule_tmp.Utils.DataBaseHelper;
 import com.example.scatdule_tmp.Utils.InfoDBHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kakao.sdk.user.UserApiClient;
+import com.kakao.sdk.user.model.User;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner{
@@ -121,9 +136,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
 
         //----------------------------------------------------------------------------------------------
-        mediaPlayer = MediaPlayer.create(this, R.raw.matt);
-        mediaPlayer.setLooping(true); //무한재생
-        mediaPlayer.start();
+        musicStart();
         //-----------------------------------------------------------------------------------------------
 
 
@@ -132,14 +145,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
 
         setDays_info(); //오늘의 날짜 가져오는 함수 선언
 
-        TextView levelView = (TextView)findViewById(R.id.levelView);
-        ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+
         ImageView cat = (ImageView) findViewById(R.id.cat);
         dbHelper.insert( Constants.exp, Constants.level);
-        levelView.setText("Lv." + Constants.level);
-        progress.setProgress(Constants.exp);
-        Glide.with(this).load(R.raw.black_sit_tale).into(cat);
-        Log.i("level", Integer.toString(Constants.level));
+        set_progress();
+
 
         //    ---------------------------------------------------------------------------------------------
         //    todolist 기능 구현 코드
@@ -191,8 +201,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         dbHelper.Update( Constants.exp, Constants.level);
         progress.setProgress(Constants.exp);
         levelView.setText("Lv." + Constants.level);
-        set_image();
-
+        set_image(Constants.level);
+        if(Constants.exp==0&&Constants.level>1) changeLevel();
     }
 
 
@@ -231,6 +241,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         mediaPlayer.stop();
         mediaPlayer=null;
     }
+    public void musicStart(){
+        mediaPlayer = MediaPlayer.create(this, R.raw.matt);
+        mediaPlayer.setLooping(true); //무한재생
+        mediaPlayer.start();
+    }
 
     void changeLevel() {
         AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
@@ -246,50 +261,551 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         msgDlg.show();
     }
 
-    public void set_image(){
+    public void set_image(int level){
         ImageView cat = (ImageView) findViewById(R.id.cat);
-        if (Constants.level==1){
-            Glide.with(this).load(R.raw.black_sit_tale).into(cat);
-        }
-        else if(Constants.level==2){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.orange_tabby_sit_tale).into(cat);
-        }
-        else if(Constants.level==3){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.white_grey_sit_tale).into(cat);
-        }
-        else if(Constants.level==4){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.creme_sit_tale).into(cat);
-        }
-        else if(Constants.level==5){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.calico_sit_tale).into(cat);
-        }
-        else if(Constants.level==6){
-            if(Constants.exp==0) changeLevel();
+        Random random = new Random();
+        int randomValue = random.nextInt(3);
+        if (level!= Constants.level) return;
+        if (level<=1){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.black_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.black_sit_to_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
 
-            Glide.with(this).load(R.raw.red_sit_tale).into(cat);
-        }
-        else if(Constants.level==7){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.dark_sit_tale).into(cat);
-        }
-        else if(Constants.level==8){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.ghost_sit_tale).into(cat);
-        }
-        else if(Constants.level==9){
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
-        }
-        else{
-            if(Constants.exp==0) changeLevel();
-            Glide.with(this).load(R.raw.clown_sit_tale).into(cat);
-        }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.black_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
 
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if (level==2){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.orange_tabby_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.orange_tabby_sit_to_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
 
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.orange_tabby_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==3){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.white_grey_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.white_grey_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.white_grey_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==4){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.creme_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.creme_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.creme_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==5){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.calico_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.calico_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.calico_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==6){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.red_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.red_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.red_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==7){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.dark_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.dark_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.dark_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level==8){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.ghost_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.ghost_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.ghost_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
+        else if(level>=9){
+            if (randomValue==0)
+                Glide.with(this).asGif().load(R.raw.ghost_sit_tale).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(5);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            else if (randomValue==1) {
+                Glide.with(this).asGif().load(R.raw.ghost_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+            else if (randomValue==2) {
+                Glide.with(this).asGif().load(R.raw.ghost_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                        resource.setLoopCount(1);
+                        resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                            @Override
+                            public void onAnimationEnd(Drawable drawable) {
+                                set_image(level);
+                            }
+                        });
+                        return false;
+                    }
+                }).into(cat);
+            }
+        }
     }
 
 }
