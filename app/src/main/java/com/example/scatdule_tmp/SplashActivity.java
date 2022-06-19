@@ -67,28 +67,5 @@ public class SplashActivity extends AppCompatActivity {
                 return false;
             }
         }).into(gif_image);
-
-
-
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if(isLogin==true)
-                {
-                    Intent main = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(main);
-                }
-                else
-                {
-                    Intent main = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(main);
-                }
-                finish();
-            }
-            //로딩이 다 안됐는데 넘어감
-        }, 3000);*/
-
     }
 }

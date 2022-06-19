@@ -14,8 +14,6 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.scatdule_tmp.Constants.KOREA_TIMEZONE;
-import static com.example.scatdule_tmp.Constants.A_MORNING_EVENT_TIME;
-import static com.example.scatdule_tmp.Constants.A_NIGHT_EVENT_TIME;
 import static com.example.scatdule_tmp.Constants.SCATDULE_EVENT_TIME;
 
 public class WorkerScatdule extends Worker {
