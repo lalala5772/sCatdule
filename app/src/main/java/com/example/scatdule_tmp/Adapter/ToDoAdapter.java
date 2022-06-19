@@ -1,7 +1,7 @@
 package com.example.scatdule_tmp.Adapter;
 
-import static com.example.scatdule_tmp.MainActivity.exp;
-import static com.example.scatdule_tmp.MainActivity.level;
+/*import static com.example.scatdule_tmp.MainActivity.exp;
+import static com.example.scatdule_tmp.MainActivity.level;*/
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.scatdule_tmp.Constants;
 import com.example.scatdule_tmp.MainActivity;
 import com.example.scatdule_tmp.Model.ToDoModel;
 import com.example.scatdule_tmp.R;
@@ -53,11 +54,11 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
-                    exp += 50;
-                    if(exp>=100)
+                    Constants.exp += 50;
+                    if(Constants.exp>=100)
                     {
-                        exp%=100;
-                        level+=1;
+                        Constants.exp%=100;
+                        Constants.level+=1;
                     }
                     activity.set_progress();
                 }else
