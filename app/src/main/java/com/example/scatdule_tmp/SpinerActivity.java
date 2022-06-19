@@ -108,31 +108,6 @@ public class SpinerActivity extends Activity {
         return;
     }
 
-    private void setAlarm2(String hour) {
-        //AlarmReceiver에 값 전달
-        Intent receiverIntent = new Intent(SpinerActivity.this, AlarmRecevier.class);
-        //오류가 날 예정
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(SpinerActivity.this, 0, receiverIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        //String from = hour+":00"; //임의로 날짜와 시간을 지정
-
-        Date nowDate = new Date();
-        Log.i("tlqkf", nowDate.toString());
-        String from = "22:31:00";
-        //날짜 포맷을 바꿔주는 소스코드
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        Date datetime = null;
-        try {
-            datetime = dateFormat.parse(from);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(datetime);
-
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-    }
     private void setAlarm(final WorkManager workManager) {
         NotificationHelper.setScheduledNotification(workManager);
     }

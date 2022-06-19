@@ -31,21 +31,14 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import static com.example.scatdule_tmp.Constants.A_MORNING_EVENT_TIME;
-import static com.example.scatdule_tmp.Constants.B_MORNING_EVENT_TIME;
-import static com.example.scatdule_tmp.Constants.A_NIGHT_EVENT_TIME;
-import static com.example.scatdule_tmp.Constants.B_NIGHT_EVENT_TIME;
+
 import static com.example.scatdule_tmp.Constants.SCATDULE_EVENT_TIME;
-import static com.example.scatdule_tmp.Constants.WORK_A_NAME;
-import static com.example.scatdule_tmp.Constants.WORK_B_NAME;
 import static com.example.scatdule_tmp.Constants.WORK_SCATDULE_NAME;
 import static com.example.scatdule_tmp.Constants.KOREA_TIMEZONE;
 import static com.example.scatdule_tmp.Constants.NOTIFICATION_CHANNEL_ID;
 
 public class NotificationHelper {
     private Context mContext;
-    private static final Integer WORK_A_NOTIFICATION_CODE = 0;
-    private static final Integer WORK_B_NOTIFICATION_CODE = 1;
     private static final Integer WORK_SCATDULE_CODE = 2;
     NotificationHelper(Context context) {
         mContext = context;
@@ -59,9 +52,9 @@ public class NotificationHelper {
         // Event 발생시 WorkerScatdule.class 호출
         // 알림 활성화 시점에서 반복 주기 이전에 있는 가장 빠른 알림 생성
         OneTimeWorkRequest aWorkerOneTimePushRequest = new OneTimeWorkRequest.Builder(WorkerScatdule.class).build();
-        // 가장 가까운 알림시각까지 대기 후 실행, 12시간 간격 반복 5분 이내 완료
+        // 가장 가까운 알림시각까지 대기 후 실행, 24시간 간격 반복 5분 이내 완료
         PeriodicWorkRequest aWorkerPeriodicPushRequest =
-                new PeriodicWorkRequest.Builder(WorkerScatdule.class, 24, TimeUnit.HOURS, 1, TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(WorkerScatdule.class, 24, TimeUnit.HOURS, 5, TimeUnit.MINUTES)
                         .build();
         try {
             // workerScatdule 정보 조회
@@ -85,33 +78,7 @@ public class NotificationHelper {
         long pushDelayMillis = 0;
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(KOREA_TIMEZONE), Locale.KOREA);
         long currentMillis = cal.getTimeInMillis();
-        if (workName.equals(WORK_A_NAME)) {
-            // 현재 시각이 20:00보다 크면 다음 날 오전 알림, 현재 시각이 20:00 전인지 08:00 전인지에 따라 알림 딜레이 설정
-            if (cal.get(Calendar.HOUR_OF_DAY) >= Constants.A_NIGHT_EVENT_TIME) {
-                Calendar nextDayCal = getScheduledCalender(A_MORNING_EVENT_TIME);
-                nextDayCal.add(Calendar.DAY_OF_YEAR, 1);
-                pushDelayMillis = nextDayCal.getTimeInMillis() - currentMillis;
-
-            } else if (cal.get(Calendar.HOUR_OF_DAY) >= A_MORNING_EVENT_TIME && cal.get(Calendar.HOUR_OF_DAY) < A_NIGHT_EVENT_TIME) {
-                pushDelayMillis = getScheduledCalender(A_NIGHT_EVENT_TIME).getTimeInMillis() - currentMillis;
-
-            } else if (cal.get(cal.get(Calendar.HOUR_OF_DAY)) < A_MORNING_EVENT_TIME) {
-                pushDelayMillis = getScheduledCalender(A_MORNING_EVENT_TIME).getTimeInMillis() - currentMillis;
-            }
-        } else if (workName.equals(WORK_B_NAME)) {
-            // 현재 시각이 21:00보다 크면 다음 날 오전 알림, 현재 시각이 21:00 전인지 09:00 전인지에 따라 알림 딜레이 설정
-            if (cal.get(Calendar.HOUR_OF_DAY) >= B_NIGHT_EVENT_TIME) {
-                Calendar nextDayCal = getScheduledCalender(B_MORNING_EVENT_TIME);
-                nextDayCal.add(Calendar.DAY_OF_YEAR, 1);
-                pushDelayMillis = nextDayCal.getTimeInMillis() - currentMillis;
-
-            } else if (cal.get(Calendar.HOUR_OF_DAY) >= B_MORNING_EVENT_TIME && cal.get(Calendar.HOUR_OF_DAY) < B_NIGHT_EVENT_TIME) {
-                pushDelayMillis = getScheduledCalender(B_NIGHT_EVENT_TIME).getTimeInMillis() - currentMillis;
-
-            } else if (cal.get(cal.get(Calendar.HOUR_OF_DAY)) < B_MORNING_EVENT_TIME) {
-                pushDelayMillis = getScheduledCalender(B_MORNING_EVENT_TIME).getTimeInMillis() - currentMillis;
-            }
-        } else if (workName.equals(WORK_SCATDULE_NAME)) {
+        if (workName.equals(WORK_SCATDULE_NAME)) {
             if (cal.get(Calendar.HOUR_OF_DAY) >= SCATDULE_EVENT_TIME) {
                 Calendar nextDayCal = getScheduledCalender(SCATDULE_EVENT_TIME);
                 nextDayCal.add(Calendar.DAY_OF_YEAR, 1);
@@ -139,35 +106,13 @@ public class NotificationHelper {
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                 .setAutoCancel(true); // 클릭 시 Notification 제거
 
-        // 매개변수가 WorkerA라면
-        if (workName.equals(WORK_A_NAME)) {
-            // Notification 클릭 시 동작할 Intent 입력, 중복 방지를 위해 FLAG_CANCEL_CURRENT로 설정, CODE를 다르게하면 Notification 개별 생성
-            // Code가 같으면 같은 알림으로 인식하여 갱신작업 진행
-            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, WORK_A_NOTIFICATION_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-            // Notification 제목, 컨텐츠 설정
-            notificationBuilder.setContentTitle("WorkerA Notification").setContentText("set a Notification contents")
-                    .setContentIntent(pendingIntent);
-
-            if (notificationManager != null) {
-                notificationManager.notify(WORK_A_NOTIFICATION_CODE, notificationBuilder.build());
-            }
-        } else if (workName.equals(WORK_B_NAME)) {
-            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, WORK_B_NOTIFICATION_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-            notificationBuilder.setContentTitle("WorkerB Notification").setContentText("set a Notification contents")
-                    .setContentIntent(pendingIntent);
-
-            if (notificationManager != null) {
-                notificationManager.notify(WORK_B_NOTIFICATION_CODE, notificationBuilder.build());
-            }
-        } else if (workName.equals(WORK_SCATDULE_NAME)) {
-            //pendingintent 오류가 날 것 같음
-            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, WORK_SCATDULE_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        // 매개변수가 WorkerSCATCULE라면
+        if (workName.equals(WORK_SCATDULE_NAME)) {
+            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, WORK_SCATDULE_CODE, intent, PendingIntent.FLAG_IMMUTABLE);
             notificationBuilder.setContentTitle("Scatdule").setContentText("to-do-list를 완료하여 고양이를 키우세요!")
                     .setContentIntent(pendingIntent);
             if (notificationManager != null) {
-                notificationManager.notify(WORK_A_NOTIFICATION_CODE, notificationBuilder.build());
+                notificationManager.notify(WORK_SCATDULE_CODE, notificationBuilder.build());
             }
         }
     }

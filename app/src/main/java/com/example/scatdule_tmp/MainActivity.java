@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
 
 
+
         // 로그에 해시 키 값 띄우기-----------------------------------------------------------------------------
         Log.d("getKeyHash", "" + getKeyHash(MainActivity.this));
 

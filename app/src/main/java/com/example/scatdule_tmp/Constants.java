@@ -11,10 +11,7 @@ public class Constants {
     public static final String KOREA_TIMEZONE = "Asia/Seoul";
 
     // 챌린지 랭킹 시작 시각
-    public static final Integer A_MORNING_EVENT_TIME = 8;
-    public static final Integer A_NIGHT_EVENT_TIME = 20;
-    public static final Integer B_MORNING_EVENT_TIME = 9;
-    public static final Integer B_NIGHT_EVENT_TIME = 21;
+
 
     public static Integer SCATDULE_EVENT_TIME = 21;
 
@@ -22,8 +19,6 @@ public class Constants {
     public static final Integer NOTIFICATION_INTERVAL_HOUR = 1;
 
     // 백그라운드 work Unique 이름
-    public static final String WORK_A_NAME = "Challenge Notification";
-    public static final String WORK_B_NAME = "Ranking Notification";
     public static final String WORK_SCATDULE_NAME = "Scatdule Notification";
 
     public static int level=1;

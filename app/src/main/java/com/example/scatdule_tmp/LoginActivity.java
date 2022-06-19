@@ -62,19 +62,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        // 로그 아웃 버튼
-        /*logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
-                    @Override
-                    public Unit invoke(Throwable throwable) {
-                        updateKakaoLoginUi();
-                        return null;
-                    }
-                });
-            }
-        });*/
         updateKakaoLoginUi();
     }
     private void updateKakaoLoginUi(){
@@ -83,36 +70,13 @@ public class LoginActivity extends AppCompatActivity {
             public Unit invoke(User user, Throwable throwable) {
                 // 로그인이 되어있으면
                 if (user!=null){
-
-                    // 유저의 아이디
-                    Log.d(TAG,"invoke: id" + user.getId());
-                    // 유저의 어카운트정보에 이메일 이걸로 DB에 저장하면 될 듯
-                    Log.d(TAG,"invoke: nickname" + user.getKakaoAccount().getEmail());
-                    // 유저의 어카운트 정보의 프로파일에 닉네임
-                    Log.d(TAG,"invoke: email" + user.getKakaoAccount().getProfile().getNickname());
-                    // 유저의 어카운트 파일의 성별
-                    Log.d(TAG,"invoke: gerder" + user.getKakaoAccount().getGender());
-                    // 유저의 어카운트 정보에 나이
-                    Log.d(TAG,"invoke: age" + user.getKakaoAccount().getAgeRange());
-
-
+                    //Firebase
                     Constants.id = String.valueOf(user.getId());
-
                     FirebaseUser.findUser(Constants.id);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
-
                     finish();
-                    /*nickName.setText(user.getKakaoAccount().getProfile().getNickname());
-
-                    Glide.with(profileImage).load(user.getKakaoAccount().
-                            getProfile().getProfileImageUrl()).circleCrop().into(profileImage);
-                    loginButton.setVisibility(View.GONE);
-                    logoutButton.setVisibility(View.VISIBLE);*/
-                }else {
-                    // 로그인이 되어 있지 않다면 위와 반대로
-
                 }
                 return null;
             }
