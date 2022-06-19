@@ -1,10 +1,13 @@
 package com.example.scatdule_tmp;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,8 @@ public class SettingActivity extends AppCompatActivity {
     private ImageButton back_btn;
     private ImageButton home_btn;
     private SplashActivity splashActivity;
+    private Switch soundbtn;
+    public static boolean soundcheck = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -77,5 +82,26 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+
+        soundbtn = findViewById(R.id.sound_btn);
+        if(soundcheck) soundbtn.setChecked(true);
+        else soundbtn.setChecked(false);
+        soundbtn.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    soundbtn.setChecked(true);
+                    soundcheck = true;
+                    ((MainActivity)MainActivity.context_main).musicStart();
+                }
+                else{
+                    soundbtn.setChecked(false);
+                    soundcheck = false;
+                    ((MainActivity)MainActivity.context_main).musicStop();
+                }
+            }
+        });
+
     }
+
 }

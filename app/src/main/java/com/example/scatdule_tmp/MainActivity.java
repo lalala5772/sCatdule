@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     public MediaPlayer mediaPlayer; // 음악재생
 
     TextView days_info; //오늘의 날짜 정보를 가져올 객체
-    CheckBox checkBox;
 
     private RecyclerView mRecyclerview;
     private FloatingActionButton fab;
@@ -138,14 +137,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         //----------------------------------------------------------------------------------------------
         musicStart();
         //-----------------------------------------------------------------------------------------------
-
-
-
-        //-----------------------------------------------------------------------------------------------
-
         setDays_info(); //오늘의 날짜 가져오는 함수 선언
-
-
+        //-----------------------------------------------------------------------------------------------
         ImageView cat = (ImageView) findViewById(R.id.cat);
         dbHelper.insert( Constants.exp, Constants.level);
         set_progress();
@@ -183,15 +176,26 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     //      ----------------------------------------------------------------------------------------------
     //      오늘의 날짜 정보 가져오는 코드
 
-    public void setDays_info(){
+//    public void setDays_info(){
+//        days_info = findViewById(R.id.days_info);
+//
+//        Date currentTime = Calendar.getInstance().getTime();
+//        String date_text = new SimpleDateFormat("yyyy-MM-dd    EE", Locale.getDefault()).format(currentTime);
+//
+//        days_info.setText(date_text);
+//
+//
+//    }
+
+    public void setDays_info() {
         days_info = findViewById(R.id.days_info);
+        Date dateNow = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd    EE", Locale.getDefault());  // 2월 15일
+        // "M월 dd일" 에는 원하는 형식을 넣어주면 됩니다.
 
-        Date currentTime = Calendar.getInstance().getTime();
-        String date_text = new SimpleDateFormat("yyyy-MM-dd    EE", Locale.getDefault()).format(currentTime);
-
-        days_info.setText(date_text);
-
+        days_info.setText(format.format(dateNow));
     }
+
 
     //      ----------------------------------------------------------------------------------------------
     //      경험치 바, 레벨 구현 코드
@@ -748,7 +752,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         }
         else if(level>=9){
             if (randomValue==0)
-                Glide.with(this).asGif().load(R.raw.ghost_sit_tale).listener(new RequestListener<GifDrawable>() {
+                Glide.with(this).asGif().load(R.raw.clown_sit_tale).listener(new RequestListener<GifDrawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
                         return false;
@@ -766,7 +770,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                     }
                 }).into(cat);
             else if (randomValue==1) {
-                Glide.with(this).asGif().load(R.raw.ghost_sit_sleep).listener(new RequestListener<GifDrawable>() {
+                Glide.with(this).asGif().load(R.raw.clown_sit_sleep).listener(new RequestListener<GifDrawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
                         return false;
@@ -786,7 +790,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                 }).into(cat);
             }
             else if (randomValue==2) {
-                Glide.with(this).asGif().load(R.raw.ghost_sit_up_down).listener(new RequestListener<GifDrawable>() {
+                Glide.with(this).asGif().load(R.raw.clown_sit_up_down).listener(new RequestListener<GifDrawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
                         return false;

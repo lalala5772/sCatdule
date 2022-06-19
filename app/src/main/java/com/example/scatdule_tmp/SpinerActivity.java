@@ -48,7 +48,7 @@ public class SpinerActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_spiner);
 
-        final String[] time = {"-알림 시간 선택-", "00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"};
+        final String[] time = {"   -시간 선택-", "00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"};
 
         RadioButton allow = (RadioButton) findViewById(R.id.radioButton3);
         RadioButton block = (RadioButton) findViewById(R.id.radioButton4);

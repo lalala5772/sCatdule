@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     // 로그인이 되어 있지 않다면 위와 반대로
-                                    Intent main = new Intent(SplashActivity.this, MainActivity.class);
+                                    Intent main = new Intent(SplashActivity.this, LoginActivity.class);
                                     startActivity(main);
                                     finish();
                                 }

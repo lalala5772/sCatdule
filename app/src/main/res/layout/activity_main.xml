@@ -28,7 +28,7 @@
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/main_profile"
         android:text="날짜 정보 표시"
-        android:textSize="27sp"
+        android:textSize="25sp"
         android:gravity="center"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -54,22 +54,21 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="120dp"
         android:layout_height="10dp"
+        android:layout_below="@id/days_info"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:layout_below="@id/days_info"
-        android:outlineAmbientShadowColor="@color/purple_200"
         android:elevation="10dp"
-        />
+        android:outlineAmbientShadowColor="@color/purple_200" />
 
     <!--    // 고양이 이미지 부분-->
 
     <ImageView
         android:id="@+id/cat"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_below="@id/days_info"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:elevation="10dp" />
 
     <!--    //레벨을 나타내는 부분-->

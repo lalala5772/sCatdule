@@ -35,7 +35,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="70dp"
+        >
         <ImageButton
             android:id="@+id/notificationSettings_text"
             android:layout_width="match_parent"
@@ -93,12 +94,12 @@
             android:layout_alignRight="@id/logoutButton"
             android:layout_alignBottom="@id/logoutButton"
 
+            android:gravity="center"
             android:text="로그아웃"
             android:textColor="#5C5B5B"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:typeface="sans"
-            android:gravity="center" />
+            android:typeface="sans" />
 
 
         <ImageButton
@@ -131,6 +132,49 @@
             android:textSize="25dp"
             android:textStyle="bold"
             android:typeface="sans" />
+
+        <ImageView
+            android:id="@+id/soundsetting"
+            android:layout_width="210dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="viewStart"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            android:layout_below="@id/help_text"
+            style="?android:attr/borderlessButtonStyle"
+            android:foreground="@drawable/list_btn" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignLeft="@id/soundsetting"
+            android:layout_alignTop="@id/soundsetting"
+            android:layout_alignRight="@id/soundsetting"
+            android:layout_alignBottom="@id/soundsetting"
+
+            android:gravity="center"
+            android:text="소리설정"
+            android:textColor="#5C5B5B"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <Switch
+            android:id="@+id/sound_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/help_text"
+            android:layout_toRightOf="@id/soundsetting"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="37dp"
+            android:gravity="right|center"
+            android:switchMinWidth="60dp" />
 
     </RelativeLayout>
 
