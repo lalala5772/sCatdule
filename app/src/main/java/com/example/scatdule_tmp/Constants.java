@@ -26,7 +26,7 @@ public class Constants {
     public static final String WORK_B_NAME = "Ranking Notification";
     public static final String WORK_SCATDULE_NAME = "Scatdule Notification";
 
-    public static int level;
+    public static int level=1;
     public static int exp;
     public static String id = "";
 }
